@@ -97,11 +97,21 @@ def get_profit_by_sql() -> Set:
     profit_qty_qual_list = [*(x for t in profit_qty_qual for x in t)]
     multiply_list = map(lambda x, y: x * y, profit_qty_qual_list, profit_qty_list)
     sum_uniprice = sum(multiply_list)
-
-
     return sum_uniprice
 
+def get_unique_customers_by_sql_1() -> Set:
+    query_sql = '''
+        SELECT FirstName
+          FROM customers
+    '''
+    from collections import Counter
+    unique_names_first_name = list(execute_query(query_sql))
+    unique_names_first_name_list = [*(x for t in  unique_names_first_name for x in t)]
+    unique_names_first_name_collection = dict(Counter(unique_names_first_name_list))
+    return unique_names_first_name_collection
 
-result = get_profit_by_sql()
+
+
+result = get_unique_customers_by_sql_1()
 print(result)
 
